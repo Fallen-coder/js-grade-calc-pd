@@ -42,7 +42,7 @@
       const gradingSchemeSelect = document.getElementById("grading-scheme");
       const resultDiv = document.getElementById("result");
 
-      calculateBtn.addEventListener("click", handleClick );
+      calculateBtn.addEventListener("click", handleClick);
 
       function handleClick() {
         const name = nameInput.value;
@@ -50,17 +50,35 @@
         const maxPoints = parseFloat(maxPointsInput.value);
         const gradingScheme = gradingSchemeSelect.value;
 
-        // Validate inputs
-        if (!name || isNaN(points) || isNaN(maxPoints) || maxPoints <= 0) {
-          resultDiv.innerHTML = "Lūdzu, aizpildiet visus laukus pareizi.";
-          return;
-        }
-        if (points < 0 || points > maxPoints) {
-          resultDiv.innerHTML =
-            "Iegūtie punkti nedrīkst pārsniegt maksimālos punktus.";
-          return;
-        }
+        let result = "";
 
+        let errors = errorsCheck(name, points, maxPoints);
+        if (errors.length > 0) {
+          result = errors;
+        } else {
+          result = Calculator(points, maxPoints, gradingScheme);
+        }
+        resultDiv.innerHTML = result;
+
+        function errorsCheck(name, points, maxPoints) {
+          let ary = [];
+          if (!name || isNaN(points) || isNaN(maxPoints) || maxPoints <= 0) {
+            ary.push("Lūdzu, aizpildiet visus laukus pareizi.");
+          }
+          if (points < 0 || points > maxPoints) {
+            ary.push("Iegūtie punkti nedrīkst pārsniegt maksimālos punktus.");
+          }
+
+          let errorMessages = "";
+          for (let i = 0; i < ary.length; i++) {
+            errorMessages += `<li>${ary[i]}</li>`;
+          }
+
+          return errorMessages;
+        }
+      }
+
+      function Calculator(points, maxPoints, gradingScheme) {
         let grade = "";
         if (gradingScheme === "percentage") {
           const percentage = (points / maxPoints) * 100;
@@ -79,7 +97,7 @@
           }
         }
 
-        resultDiv.innerHTML = grade;
+        return grade;
       }
     </script>
   </body>
