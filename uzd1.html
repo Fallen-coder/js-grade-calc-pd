@@ -60,10 +60,10 @@
         }
 
         const grade = "";
-        if (gradingScheme === "letter") {
+        if (gradingScheme === "percentage") {
           const percentage = (points / maxPoints) * 100;
           grade = `Jūsu procentuālā vērtība ir: ${percentage.toFixed(2)}%`;
-        } else if (gradingScheme === "percentage") {
+        } else if (gradingScheme === "letter") {
           if (points >= 90) {
             grade = "Jūsu burtu vērtējums ir: A";
           } else if (points >= 80) {
