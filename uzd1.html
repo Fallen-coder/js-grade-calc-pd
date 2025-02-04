@@ -37,10 +37,12 @@
     <script>
       const calculateBtn = document.getElementById("calculate-btn");
       const nameInput = document.getElementById("name");
-      const points = document.getElementById("points");
+      const pointsInput = document.getElementById("points");
       const maxPointsInput = document.getElementById("max-points");
       const gradingSchemeSelect = document.getElementById("grading-scheme");
       const resultDiv = document.getElementById("result");
+
+      calculateBtn.addEventListener("click", handleClick());
 
       function handleClick() {
         const name = nameInput.value;
@@ -79,8 +81,6 @@
 
         resultDiv.innerHTML = grade;
       }
-
-      calculateBtn.addEventListener("click", handleClick());
     </script>
   </body>
 </html>
